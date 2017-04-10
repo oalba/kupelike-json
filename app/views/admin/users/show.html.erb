@@ -1,0 +1,36 @@
+<div class="container-fluid content">
+    <div class="row">
+        <div class="col-xs-offset-3 col-xs-6">
+            <h3>User</h3>
+            <table>
+                <tr>
+                    <th><%= t('labels.usuario.nombre') %></th>
+                    <td><%= @user.name if @user.name %></td>
+                </tr>
+                <tr>
+                    <th><%= t('labels.usuario.apellidos') %></th>
+                    <td><%= @user.surnames if @user.surnames %></td>
+                </tr>
+                <tr>
+                    <th><%= t('labels.usuario.email') %></th>
+                    <td><%= @user.email if @user.email %></td>
+                </tr>
+                <tr>
+                    <th><%= t('labels.usuario.sidreria') %></th>
+                    <td><%= @user.place.name if @user.place_id %></td>
+                </tr>
+                <tr>
+                    <th>Role:</th>
+                    <td><%= @user.role.name if @user.role_id %></td>
+                </tr>
+                <tr>
+                    <th><%= t('labels.usuario.telefono') %></th>
+                    <td><%= @user.phone if @user.phone %></td>
+                </tr>
+                <tr>
+                    <th>Address:</th>
+                    <td><%= @user.address if @user.address %></td>
+                </tr>
+            </table>
+        </div>
+    </div>

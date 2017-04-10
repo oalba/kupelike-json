@@ -1,0 +1,17 @@
+<div class="container-fluid content">
+    
+    <div class="row">
+        <div class="col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+            <div class="row">
+                <h1 class="mtitle title-padding text-center"><%= t('paginas.contacto.titulo') %></h1>
+            </div>
+            <div class="row">
+                <%= simple_form_for @message, url: contact_path, class: 'contact_form' do |message_form| %>
+                    <%= message_form.text_field :name, placeholder: t('paginas.contacto.nombre'), class: 'formulario', required: true %>
+                    <%= message_form.email_field :email, placeholder: t('paginas.contacto.email'), class: 'formulario', required: true %>
+                    <%= message_form.text_area :content, placeholder: t('paginas.contacto.motivo'), class: 'formulario', cols: 40, rows: 6, required: true %>
+                    <%= message_form.submit t('paginas.contacto.enviar'), class: 'formulario', id: 'enviar' %>
+                <% end %>
+            </div>
+        </div>
+    </div>

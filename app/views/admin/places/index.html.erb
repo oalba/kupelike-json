@@ -1,0 +1,19 @@
+<div class="container-fluid">
+    <div class="row-nuevakupela" style="margin-top:50px;">
+        <%= link_to new_admin_place_path, { :class => 'btn btn-default', :title => t('titulos.newsidre') } do %>
+            <span class="glyphicon glyphicon-plus"></span>
+        <% end %>
+        
+        <div class="table-responsive">
+            <table id="usuarios" class="table table-hover">
+                <tr>
+                    <th>ID</th>
+                    <th><%= t('labels.sidreria.nombre') %></th>
+                    <th><%= t('labels.sidreria.direccion') %></th>
+                    <th><%= t('labels.sidreria.descripcion') %></th>
+                    <th colspan="2"><%= t('labels.sidreria.acciones') %></th>
+                </tr>
+                <%= render @places %>
+            </table>
+        </div>
+    </div>

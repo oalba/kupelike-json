@@ -1,0 +1,39 @@
+<script>
+    window.onload = function(){
+        var sagarPos;
+        // var perPos;
+        var distancia;
+        var id = null;
+		
+		if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var perPos = new google.maps.LatLng({lat: position.coords.latitude, lng: position.coords.longitude});
+            <% @places.each do |place| %>
+                // Si en la sagardotegi están establecidas las coordenadas
+                <% if place.latitude.present? && place.longitude.present? %>
+                    sagarPos = new google.maps.LatLng({lat: <%= place.latitude %>, lng: <%= place.longitude %>});
+                    distancia = google.maps.geometry.spherical.computeDistanceBetween(perPos, sagarPos); 
+                <% end %>
+
+                if (distancia <= 30) {
+                    id = "<%= place.id %>";
+                }
+            <% end %>
+            if (id != null){
+                var url = '<%= place_path("xxx") %>';
+                url = url.replace("xxx", id);
+                window.location = url;
+            } else {
+                window.location = "<%= index_path %>";
+            }
+          },
+            function (error) { 
+                window.location = "<%= index_path %>";
+            },{timeout:6000});
+		} else {
+            window.location.href = "<%= index_path %>";
+        }
+        // setTimeout(window.location.href = "<%= index_path %>", 6000);
+    }
+</script>
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyAQWPiW2qkBRj4BXmEwFS2XMm2kzwKH82M&libraries=geometry"></script>

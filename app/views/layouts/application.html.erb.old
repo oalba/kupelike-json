@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="user-scalable=yes">
+        <title>KupeLike</title>
+    	<%= javascript_include_tag 'jquery.min', 'application'  %>
+        <link rel="shortcut icon" href="<%= asset_path('favicon.ico') %>" type="image/ico"/>
+        <%= stylesheet_link_tag "application", "estilo", "bootstrap.min", "https://fonts.googleapis.com/css?family=Fjalla+One|Roboto|Lobster|Lato"  %>
+         
+        <script src="https://js.pusher.com/3.2/pusher.min.js"></script>
+
+        <script type="text/javascript" src="//api.filestackapi.com/filestack.js"></script>
+        
+        <script>
+// $(document).ready(function(){
+//     $('#search').on('keyup keypress', function(e) {
+//       var keyCode = e.keyCode || e.which;
+//       if (keyCode === 13) { 
+//         e.preventDefault();
+//         return false;
+//       }
+//     });
+//     $("#search").keyup(function(){
+//         var txtBusqueda = $("#search").val();
+//         if(txtBusqueda != ""){
+//             $.ajax({
+//                 type: "POST",
+//                 url: $("#navbar-search").attr("action"),
+//                 dataType: "json",
+//                 data: {textoBusqueda : txtBusqueda},
+//                 success : function(response) {
+//                     //console.log(response);
+//                     $("#searchResults").show();
+//                     $("#searchResults").html("");
+//                     $.each(response, function(index, sagardotegi){
+//                         var ida = sagardotegi.id;
+//                         var sfoto = sagardotegi.foto;
+//                         var route = "{{ path("sagardotegi_view", { 'idSagardotegi': "change" }) }}".replace("change", ida);
+//                         var llegar = "{{ path("sagardotegi_mapa", { 'idSagardotegi': "change" }) }}".replace("change", ida);
+                        
+//                         $("#searchResults").append(
+//     "<hr class='search-hr'><div class='row'>"+
+//         "<a name='"+sagardotegi.nombre+"' href='"+route+"'>"+
+//             "<div class='col-xs-offset-2 col-xs-5'>"+
+//                 "<h2 class='card-title text-uppercase'>"+sagardotegi.nombre+"</h2>"+
+//                 "<div class='card-margen-20'>"+
+//                     "<p class='card-description' id='descripcion'>"+sagardotegi.descripcion+"</p>"+
+//                     "<a href='"+llegar+"'><button type='button' class='btn btn-default'><%= t('paginas.sidrerias.llegar') %></button></a>"+
+//                 "</div>"+
+//             "</div>"+
+//         "</a>"+
+//         "<a name='"+sagardotegi.nombre+"' href='"+route+"'>"+
+//             "<div class='col-xs-4'>"+
+//                 "<div class='card-sidreria'>"+
+//                     "<img class='img-responsive img-search' src='"+sfoto+"'></img>"+
+//                 "</div>"+
+//             "</div>"+
+//         "</a>"+
+//     "</div>"
+//                         );
+                    
+//                     });
+//                 }
+//             });
+//         }
+//     });
+// });
+        </script>
+    </head>
+    <body>
+        <div class="wrapper">
+            
+        <!-- Navbar start -->
+        <nav class="navbar navbar-light bg-faded navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-12 p-x-0">
+                        <ul class="list-inline pull-right idiomas visible-md visible-lg visible-xl">
+                            <li class="es"><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'es'})) }}">ES</a></li>
+                            |
+                            <li class="eus"><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'eus'})) }}">EUS</a></li>
+                            |
+                            <li class="en"><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'en'})) }}">EN</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-1 navbar-header hidden-md hidden-lg">
+                        <a id="navbar-ham" class="navbar-ham toggle-button visible-xs visible-sm"><i class="fa fa-bars fa-4x" aria-hidden="true"></i></a>
+                    </div>
+                    <div class="col-xs-4 col-lg-3 navbar-header p-x-0">
+	                    <%= link_to 'index', { :class => 'navbar-title', :id => 'navbar-title' } do %>
+						    Kupe<img class="img-logo"/>Like
+						<% end %>
+ 					</div>
+                    <div class="col-md-7 col-lg-8 desktop-menu visible-md visible-lg p-x-0">
+                        <ul class="desktop-menu-links">
+                            <!-- {% if app.user %}
+                                {% if app.user.role == 'ROLE_ADMIN' %}
+                                    <li><a class="btn-margin" href="{{path('panel_usuarios')}}"><%= t('paginas_estaticas.menu.admuser') %><%= t('paginas_estaticas.menu.admuser') %></a></li>
+                                    <li><a href="{{path('panel_sagardotegis')}}"><%= t('paginas_estaticas.menu.admsidre') %></a></li>
+                                {% else %}
+                                    <li><a class="btn-margin" href="{{path("administracion_usuarios", { nombreSidreria: app.user.nombreSidreria })}}"><%= t('paginas_estaticas.menu.misidre') %></a></li>
+                                    <li><a class="btn-margin" href="{{path("editar_perfil", { id: app.user.id })}}"><%= t('paginas_estaticas.menu.perfil') %></a></li>
+                                {% endif %}
+                                <li><a href="{{path("contacto")}}"><%= t('paginas_estaticas.menu.ayuda') %></a></li>
+                                <li><a href="{{path("logout")}}"><%= t('paginas_estaticas.menu.salir') %></a></li>
+                            {% else %} -->
+                                <li><%= link_to t('paginas_estaticas.menu.sidrerias'), controller: 'place', class: 'btn-margin' %></li>
+                                <li><%= link_to t('paginas_estaticas.menu.mapa'), all_maps_path, class: 'btn-margin' %></li>
+                                <li><%= link_to t('paginas_estaticas.menu.contacto'), contact_path, class: 'btn-margin' %></li>
+                                <% if user_signed_in? %>
+                                	<% if can? :update, current_user.place %>
+								    	<li><%= link_to 'Edit', edit_place_path(current_user.place) %></li>
+									<% end %>
+                                	<li><%= link_to t('paginas_estaticas.menu.salir'), destroy_user_session_path, :method => :get %></li>
+                                <% else %>
+                                	<li><a class="btn-access"><%= t('paginas_estaticas.menu.accederr') %></a></li>
+                                <% end %>
+                            <!-- {% endif %} -->
+                        </ul>  
+                    </div>
+                    <div class="col-xs-7 col-md-1">
+                        <form id="navbar-search" class="pull-right p-x-0" role="search" action="{{ path('sagardotegis_buscar') }}">
+                            <div class="form-group">
+                              <input  id="search" type="text" class="searchBox hidden" placeholder="<%= t('paginas_estaticas.menu.buscar') %>">
+                            </div>
+                            <a id="searchButton" class="btn navbar-search-btn"><i id="searchIcon" class="fa fa-search fa-flip-horizontal fa-2x" aria-hidden="true"></i></a>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </nav>
+        <!-- Navbar END -->
+        
+        <!-- Search erantzunak -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12 searchResults" id="searchResults">
+                </div>
+            </div>
+        </div>
+        <!-- Search erantzunak END -->
+
+        <!-- Menu desplegable izquierda -->
+        <div class="menu">
+        <span><i class="fa fa-times fa-2x pull-right close-menu" aria-hidden="true"></i></span>
+            <ul class="list-inline idiomas-side">
+                <li class="es"><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'es'})) }}">ES</a></li>
+                |
+                <li class="eus"><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'eus'})) }}">EUS</a></li>
+                |
+                <li class="en"><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'en'})) }}">EN</a></li>
+            </ul>
+            <ul class="menu-links">
+                <!-- {% if app.user %}
+                    {% if app.user.role == 'ROLE_ADMIN' %}
+                        <a href="{{path('panel_usuarios')}}"><li><%= t('paginas_estaticas.menu.admuser') %></li></a>
+                        <a href="{{path('panel_sagardotegis')}}"><li><%= t('paginas_estaticas.menu.admsidre') %></li></a>
+                    {% elseif app.user.role == 'ROLE_SIDRERO' %}
+                        <a href="{{path("administracion_usuarios", { nombreSidreria: app.user.nombreSidreria })}}"><li><%= t('paginas_estaticas.menu.misidre') %></li></a>
+                        <a class="btn-margin" href="{{path("editar_perfil", { id: app.user.id })}}"><li><%= t('paginas_estaticas.menu.perfil') %></li></a>
+                    {% endif %}
+                    <a href="{{path("contacto")}}"><li><%= t('paginas_estaticas.menu.ayuda') %></li></a>
+                    <a href="{{path("logout")}}"><li><%= t('paginas_estaticas.menu.salir') %></li></a>
+                {% else %} -->
+                    <a class="{% if app.request.attributes.get('_route') starts with 'index' %}menu-links-active{% endif %}" href="{{ path('index') }}"><li><%= t('paginas_estaticas.menu.inicio') %></li></a>
+                    <a class="{% if app.request.attributes.get('_route') starts with 'sagardotegis_index' %}menu-links-active{% endif %}" href="{{ path('sagardotegis_index') }}"><li><%= t('paginas_estaticas.menu.sidrerias') %></li></a>
+                    <a class="{% if app.request.attributes.get('_route') starts with 'sagardotegien_mapak' %}menu-links-active{% endif %}" href="{{ path('sagardotegien_mapak') }}"><li><%= t('paginas_estaticas.menu.mapa') %></li></a>
+                    <a class="{% if app.request.attributes.get('_route') starts with 'contacto' %}menu-links-active{% endif %}" href="{{ path('contacto') }}"><li><%= t('paginas_estaticas.menu.contacto') %></li></a>
+                    <!--                     <li><%= link_to t('paginas_estaticas.menu.contacto'), contact_path %></li> -->
+					<a class="{% if app.request.attributes.get('_route') starts with 'nosotros' %}menu-links-active{% endif %}" href="{{ path('nosotros') }}"><li><%= t('paginas_estaticas.menu.nosotros') %></li></a>
+                    <a class="btn-access"><li><%= t('paginas_estaticas.menu.accederr') %></li></a>
+                <!-- {% endif %} -->
+            </ul>
+        </div>
+        <!-- Menu desplegable izquierda END -->
+           
+        <!-- Access window -->
+        <div class="accesWrapper">
+            <div id="accessWindow" class="row">
+                <div class="col-xs-12">
+                    <a id="closeAccess" class="pull-right"><i class="fa fa-times fa-2x" aria-hidden="true"></i></a>
+                </div>
+                <div class="col-xs-12">
+                    <h1 class="access-title text-center"><%= t('paginas_estaticas.menu.acceder.acceder') %></h1>
+                </div>
+                <div class="col-xs-12">
+                <%= form_for(:user, :url => session_path(:user), :class => 'login_form') do |f| %>
+				  <%= f.text_field :email, class: 'formulario' %>
+				  <%= f.password_field :password, class: 'formulario' %>
+				  <%= f.check_box :remember_me %>
+				  <%= f.label :remember_me %>
+				  <%= f.submit 'Sign in', class: 'formulario', id: 'enviar' %>
+				  <%= link_to "Forgot your password?", new_password_path(:user) %>
+				<% end %>
+                    <!-- <form class="login_form" action="{{ path('login_check') }}" method="post">
+                        <input name="_username" id="username" class= "formulario" type="text" required placeholder="<%= t('paginas_estaticas.menu.acceder.usuario') %>"/>
+                        <input name="_password" id="password" class= "formulario" type="password" required placeholder="<%= t('paginas_estaticas.menu.acceder.contrasena') %>"/>
+                        <button id="enviar" class="formulario" type="submit"><%= t('paginas_estaticas.menu.acceder.acceder') %></button>
+                    </form> -->
+                </div>
+                <div class="col-xs-12">
+                    <a href="{{path("registrar_form")}}" class="access-link pull-right"><%= t('paginas_estaticas.menu.acceder.red') %></a>
+                </div>
+            </div>
+        </div>
+        <!-- Access window END -->
+               
+        <!--<% if user_signed_in? %>
+		  Signed in as <%= current_user.email %>. Not you?
+		  <%= link_to "Edit profile", edit_user_registration_path %>
+		  <%= link_to "Sign out", destroy_user_session_path, :method => :get %>
+		<% else %>
+		  <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "sign in", new_user_session_path %>
+		<% end %>
+
+		<% flash.each do |name, msg| %>
+		  <%= content_tag :div, msg, id: "flash_#{name}" %>
+		<% end %>-->
+        <!-- IMPORTANTE -> Todos los ficheros que se cargen en el block body deben empezar con un div container-fluid!!!!
+        PERO SU ETIQUETA DE CIERRE CORRESPONDIENTE NO HACE FALTA!!!-->
+            <%= yield %>
+        </div><!-- .container-fluid -->
+        <div class="push"></div>
+        </div>
+        <div class="container-fluid">
+            <!-- Footer start -->
+            <div class="row footer text-center">
+                <div class="col-xs-12">
+                    
+                    <div class="row">
+                        <div class="col-xs-12 font-face-primary p-20"> 
+                        
+                            <ul class="list-inline ftitle">
+                                
+                                <li><a href="https://www.facebook.com/kupelike" target="_blank">
+                                    <span class="fa-stack fa-2x">
+                                      <i class="fa fa-circle fa-stack-2x btn-social"></i>
+                                      <i class="fa fa-facebook fa-stack-1x fa-inverse btn-social-inner" aria-hidden="true"></i>
+                                    </span>
+                                </a></li>
+                                <li><a href="https://twitter.com/KupeLike" target="_blank"><span class="fa-stack fa-2x">
+                                      <i class="fa fa-circle fa-stack-2x btn-social"></i>
+                                      <i class="fa fa-twitter fa-stack-1x fa-inverse btn-social-inner" aria-hidden="true"></i>
+                                    </span>
+                                </a></li>
+                                <li><a href="https://www.instagram.com/kupelike" target="_blank"><span class="fa-stack fa-2x">
+                                      <i class="fa fa-circle fa-stack-2x btn-social"></i>
+                                      <i class="fa fa-instagram fa-stack-1x fa-inverse btn-social-inner" aria-hidden="true"></i>
+                                    </span>
+                                </a></li>
+                            </ul>
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-xs-12 font-face-primary"> 
+                            <ul class="list-inline footer-menu text-uppercase">
+                            	<li><%= link_to t('paginas_estaticas.footer.inicio'), controller: 'index' %></li>
+                                <li><%= link_to t('paginas_estaticas.footer.mapa'), all_maps_path %></li>
+                                <li><%= link_to t('paginas_estaticas.footer.sidrerias'), controller: 'place' %></li>
+                                <li><%= link_to t('paginas_estaticas.footer.contacto'), contact_path %></li>
+                                <li><%= link_to t('paginas_estaticas.footer.nosotros'), about_us_path %></li>
+                            </ul>
+                        </div>
+                        <div class="col-xs-12 font-face-primary"> 
+                            <ul class="list-unstyled footer-menu green-color">
+                                <li><a href="tel:655555555"><i class="fa fa-phone-square" aria-hidden="true"></i> +34 655 55 55 55</a></li>
+                                <li><a href="mailto:kupelikeproject@gmail.com"><i class="fa fa-envelope" aria-hidden="true"></i> kupelikeproject@gmail.com</a></li>
+                                <li><a href="https://www.google.es/maps/place/Instituto+de+Educaci%C3%B3n+Secundaria+Xabier+Zubiri+Manteo/@43.3274463,-1.9710159,20z/data=!4m5!3m4!1s0x0:0x8654b5f1f9a490ae!8m2!3d43.3274118!4d-1.9708255"><i class="fa fa-map-marker" aria-hidden="true"></i> Paseo de José Miguel Barandiarán, 10-12, 20013 San Sebastián, Guipúzcoa</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 subfooter">   
+                    Copyright © 2017 KupeLike - All Rights Reserved - <a href="/privacy" class="">Privacy</a>
+                </div>
+                <hr class="fline"/>
+            </div>
+            <!-- Footer END -->
+        </div><!-- .container-fluid -->
+       
+        <%= javascript_include_tag 'bootstrap.min', 'script' %>
+       
+        </body>
+</html>

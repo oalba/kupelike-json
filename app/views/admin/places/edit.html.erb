@@ -1,0 +1,130 @@
+<div class="container-fluid content">
+    
+    <div class="row">
+        <div class="col-xs-offset-3 col-xs-6">
+            <div class="row">
+                <h1 class="mtitle title-padding text-center"><%= t('titulos.editsidre') %></h1>
+            </div>
+        
+            <div class="row">
+                <%= render 'form' %>
+                <%= link_to "<button class='formulario' id='enviar'>#{t('boton.cancelar')}</button>".html_safe, admin_place_path(@place.id) %>
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+          <script>
+          var map;
+          var centro;
+          var sidrerias = [];
+        function myMap() {
+            
+            var perImg="<%= asset_path('personaPos.png') %>";
+      		var persImg={
+      			url:perImg,
+      			size: new google.maps.Size(35, 35)
+      		};
+
+            var mapCanvas = document.getElementById("map");
+            var mapOptions = {
+                streetViewControl: true,
+                mapTypeControl: true,
+                zoomControl: true,
+                center: new google.maps.LatLng(<%= @place.latitude %>,<%= @place.longitude %>),
+                zoom: 15,
+                scrollwheel: false
+            };
+            var map = new google.maps.Map(mapCanvas, mapOptions);
+
+            var sidreria = new google.maps.Marker({
+                position: new google.maps.LatLng(<%= @place.latitude %>,<%= @place.longitude %>),
+                animation: google.maps.Animation.DROP,
+                map: map,
+                title: 'Tu sidrería.'
+            });
+            sidrerias.push(sidreria);
+            setMapOnAll(map);
+            
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                  var perPos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                  };
+                  var persona = new google.maps.Marker({
+                    position: perPos,
+                    animation: google.maps.Animation.DROP,
+                    map: map,
+                    title: 'Tu posición.',
+                    icon: persImg
+                  });
+                  map.setCenter(perPos);
+                });
+             }
+            //Add listener
+            new google.maps.event.addListener(map, "click", function (event) {
+                var latitude = event.latLng.lat();
+                var longitude = event.latLng.lng();
+                //console.log( latitude + ', ' + longitude );
+                $("#long").val(longitude);
+                $("#lat").val(latitude);
+                showPosition(latitude, longitude);
+                
+                setMapOnAll(null);
+                sidrerias = [];
+
+                var sidreria = new google.maps.Marker({
+                    position: new google.maps.LatLng(latitude,longitude),
+                    animation: google.maps.Animation.DROP,
+                    map: map,
+                    title: 'Tu sidrería.'
+                });
+                sidrerias.push(sidreria);
+                setMapOnAll(map);
+                
+                
+                
+            }); //end addListener
+    
+          }
+          
+            function setMapOnAll(map) {
+              for (var i = 0; i < sidrerias.length; i++) {
+                sidrerias[i].setMap(map);
+              }
+            }
+            
+          
+          function showPosition(lat,long) {
+                var url2 = get_json("https://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+long);
+                var json2 = JSON.parse(url2);
+                var a2 = json2.results[0].formatted_address;
+                
+                $("#direccion").val(a2);
+                
+                $.each(json2.results[0].address_components, function (i, address_component) {
+                    if (address_component.types[0] == "locality"){
+                        $("#pueblo").val(address_component.long_name);
+                    }
+                });
+            }
+            
+            function get_json(url) {
+                var resp ;
+                var xmlHttp ;
+                
+                resp  = '' ;
+                xmlHttp = new XMLHttpRequest();
+                
+                if(xmlHttp != null)
+                {
+                    xmlHttp.open( "GET", url, false );
+                    xmlHttp.send( null );
+                    resp = xmlHttp.responseText;
+                }
+                
+                return resp ;
+            }
+        </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQWPiW2qkBRj4BXmEwFS2XMm2kzwKH82M&callback=myMap"></script>
+    

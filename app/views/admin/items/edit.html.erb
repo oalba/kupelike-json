@@ -1,0 +1,13 @@
+<div class="container-fluid content">
+    <div class="row">
+        <div class="col-xs-offset-3 col-xs-6">
+            <div class="row">
+                <h1 class="mtitle title-padding text-center"><%= t('titulos.editkupela') %></h1>
+            </div>
+            <div class="row">
+                <%= render 'form' %>
+                <!-- Los botones cancelar tienen que ir fuera del formulario-->
+                <%= link_to "<button class='formulario' id='enviar'>#{t('boton.cancelar')}</button>".html_safe, admin_place_path(@place.id) %>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,11 @@
+<tr>
+    <td><%= place.id if place.id %></td>
+    <td><%= place.name if place.name %></td>
+    <td><%= place.address if place.address %></td>
+    <td><%= place.description if place.description %></td>
+    <td><%= link_to t('boton.manage'), admin_place_path(place), class: 'btn btn-default' %></td>
+	<!-- <td><%= link_to t('boton.editar'), edit_admin_place_path(place), class: 'btn btn-default' %></td> -->
+	<td><%= link_to t('boton.eliminar'), admin_place_path(place),
+              method: :delete,
+              data: { confirm: 'Are you sure?' }, class: 'btn btn-default' %></td>
+</tr>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="user-scalable=yes">
+        <title>KupeLike</title>
+        <%= javascript_include_tag 'application'  %>
+        <link rel="shortcut icon" href="<%= asset_path('favicon.ico') %>" type="image/ico"/>
+        <%= stylesheet_link_tag "application", "https://fonts.googleapis.com/css?family=Fjalla+One|Roboto|Lobster|Lato"  %>
+
+        <script type="text/javascript" src="//api.filestackapi.com/filestack.js"></script>
+</head>
+<body class="error-back">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 text-center">
+                <i class="error-icon fa fa-exclamation-triangle" aria-hidden="true"></i>
+                <%= yield %>
+                <%= link_to root_path, :class => 'error-logo-text' do %>
+                    Kupe<img class="error-logo" src="<%= asset_path('logo_reverse.png') %>"/>Like
+                <% end %>
+            </div>
+        </div>
+    </div>
+            
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <%= javascript_include_tag 'bootstrap.min', 'script' %>
+</body>
+</html>

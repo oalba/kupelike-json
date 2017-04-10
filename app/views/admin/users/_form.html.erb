@@ -1,0 +1,21 @@
+<!--<%= debug @user.errors %>-->
+<%= simple_form_for([:admin, @user], :class => 'contact_form') do |f| %>
+<!--<%= f.input :name %>-->
+    <label><%= t('labels.usuario.nombre') %></label><%= f.text_field :name, class: 'formulario', placeholder: 'Name', required: true %>
+    <label><%= t('labels.usuario.apellidos') %></label><%= f.text_field :surnames, class: 'formulario', placeholder: 'Surnames' %>
+    <label><%= t('labels.usuario.email') %></label><%= f.email_field :email, class: 'formulario', placeholder: 'Email', required: true %>
+    <% if user_signed_in? && current_user.admin? %>
+        <label><%= t('labels.usuario.sidreria') %></label><%= f.collection_select(:place_id, Place.all, :id, :name, {prompt: true}, class: 'formulario') %>
+        <label>Role:</label><%= f.collection_select(:role_id, Role.all, :id, :name, {prompt: true}, class: 'formulario') %>
+    <% end %>
+    <label><%= t('labels.usuario.telefono') %></label><%= f.telephone_field :phone, class: 'formulario', placeholder: 'Phone', required: true %>
+    <label>Address:</label><%= f.text_field :address, class: 'formulario', placeholder: 'Address', required: true %>
+    <% if @user.persisted? %>
+        <label>Password:</label> <%= f.password_field :password, class: 'formulario', placeholder: 'Password (Leave blank if unchanged)' %>
+        <label>Password Confirmation:</label> <%= f.password_field :password_confirmation, class: 'formulario', placeholder: 'Repeat password (Leave blank if unchanged)' %>
+    <% else %>
+        <label>Password:</label> <%= f.password_field :password, class: 'formulario', placeholder: 'Password', required: true %>
+        <label>Password Confirmation:</label> <%= f.password_field :password_confirmation, class: 'formulario', placeholder: 'Repeat password', required: true %>
+    <% end %>
+    <%= f.submit t('boton.guardar'), class: 'formulario', id: 'enviar' %>
+<% end %>

@@ -1,0 +1,65 @@
+<%= simple_form_for([:admin, @place], :class => 'contact_form') do |f| %>
+<div class="row">   
+    <div class="col-xs-4">
+        <div class="row">
+            <div class="col-xs-12">
+                <label><%= t('labels.sidreria.nombre') %></label><%= f.text_field :name, class: 'formulario', placeholder: 'Name', required: true %>
+            </div>
+        </div> 
+        <div class="row">
+            <div class="col-xs-12">
+                <label><%= t('labels.sidreria.foto') %></label><div id="foto2" name="foto2" class="formulario" value=""><%= t('boton.selfoto') %></div>
+                <%= f.hidden_field :picture, class: 'formulario', id: 'foto' %>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-8">
+        <div class="row">
+            <div class="col-xs-12">
+                <label><%= t('labels.sidreria.descripcion') %></label><%= f.text_area :description, class: 'formulario', placeholder: 'Description', style: 'resize: vertical;' %>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <label><%= t('labels.sidreria.horario') %></label></textarea><%= f.text_area :time, class: 'formulario', placeholder: 'Opening time', style: 'resize: vertical;' %>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row"> 
+    <div class="col-xs-12">
+        <label><%= t('labels.sidreria.ubicacion') %></label><div id="map" class="mapa mapaNSagar"></div>
+    </div>
+</div>
+<div class="row"> 
+    <div class="col-xs-6">
+        <div class="row"> 
+            <div class="col-xs-12">
+                <label><%= t('labels.sidreria.direccion') %></label><%= f.text_field :address, class: 'formulario', id: 'direccion', placeholder: 'Address', required: true %>
+            </div>
+        </div>
+        <div class="row"> 
+            <div class="col-xs-12">
+                <%= f.text_field :town, class: 'formulario', id: 'pueblo', placeholder: 'Town', required: true %>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-6">
+        <div class="row"> 
+            <div class="col-xs-12">
+                <label><%= t('labels.sidreria.coordenadas') %></label><%= f.text_field :latitude, class: 'formulario', id: 'lat', placeholder: 'Latitude', required: true %>
+            </div>
+        </div>
+        <div class="row"> 
+            <div class="col-xs-12">
+                <%= f.text_field :longitude, class: 'formulario', id: 'long', placeholder: 'Longitude', required: true %>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row"> 
+    <div class="col-xs-12">
+        <%= f.submit t('boton.guardar'), class: 'formulario', id: 'enviar' %>
+    </div>
+</div>
+<% end %>

@@ -1,0 +1,43 @@
+<div class="container-fluid content">
+    <div class="row sidreria">
+        <div class="col-sm-12">
+            <h1 class="mtitle title-padding text-center"><%= t('paginas.nosotros.titulo') %></h1>
+        </div>
+    </div> 
+    <div class="row contenido">
+        <div class="col-xs-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 text-center" >
+            <div class="panel-body">
+                <p class="card-description nosotros">
+                &nbsp;&nbsp;<%= t('paginas.nosotros.texto1') %><br/>
+                &nbsp;&nbsp;<%= t('paginas.nosotros.texto2') %><br/>
+                &nbsp;&nbsp;<%= t('paginas.nosotros.texto3') %>
+                </p>
+            </div>
+             
+        </div>
+    </div>
+    <div class="row"><hr class="separador_nosotros"></hr></div>
+    
+    <div class="row">  
+       <div class="col-xs-12">
+        <%= render 'slider_us' %>
+       </div>
+    </div>
+    
+    <div class="row"><hr class="separador_nosotros"></hr></div>
+    
+    <div class="row text-center">
+        <div class="col-xs-12 col-lg-4 col-lg-offset-4 col-md-6 col-md-offset-3">
+            <div class="row">
+                <div class="col-xs-4">
+        <a href="http://www.zubirimanteo.hezkuntza.net/web/guest/inicio" target="_blank"><img src="<%= asset_path('zubiri.png') %>"  class="img-rounded ikastolak" alt="Responsive image"></a>
+                </div>
+                <div class="col-xs-4">
+        <a href="http://www.donbosco.hezkuntza.net/web/guest/inicio1" target="_blank"><img src="<%= asset_path('donbosco.jpg') %>"  class="img-rounded ikastolak" alt="Responsive image">
+                </div>
+                <div class="col-xs-4">
+        <a href="http://www.mondragon.edu/es/es" target="_blank"><img src="<%= asset_path('mondragon.gif') %>" class="img-rounded ikastolak" alt="Responsive image">
+                </div>
+            </div>
+        </div>
+    </div>

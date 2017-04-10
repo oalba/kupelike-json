@@ -1,0 +1,9 @@
+<%= simple_form_for([:admin, @place, @item], class: 'contact_form') do |f| %>
+
+    <label><%= t('labels.kupela.nombre') %></label><%= f.text_field :name, class: 'formulario', placeholder: 'Name', required: true %>
+    <label><%= t('labels.kupela.descripcion') %></label><%= f.text_area :description, class: 'formulario', placeholder: 'Description', style: 'resize: vertical;' %>
+    <label><%= t('labels.kupela.ano') %></label><%= f.number_field :year, class: 'formulario', placeholder: 'Year of the item', required: true %>
+    <label><%= t('labels.kupela.foto') %></label><div id="foto2" name="foto2" class="formulario"><%= t('boton.selfoto') %></div>
+        <%= f.hidden_field :picture, class: 'formulario', id: 'foto' %>
+    <%= f.submit t('boton.guardar'), class: 'formulario', id: 'enviar' %>
+<% end %>

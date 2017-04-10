@@ -1,0 +1,28 @@
+<div class="container-fluid">
+    <% if flash[:notice] %>
+        <div class="notice alert alert-info"><%= flash[:notice] %></div>
+    <% end %>
+    <% if flash[:success] %>
+        <div class="notice alert alert-success"><%= flash[:success] %></div>
+    <% end %>
+    <% if flash[:error] %>
+        <div class="notice alert alert-danger"><%= flash[:error] %></div>
+    <% end %>
+    <div class="row-nuevakupela" style="margin-top:50px;">
+        <%= link_to 'users/new', { :class => 'btn btn-default', :title => t('titulos.newusuario') } do %>
+            <span class="glyphicon glyphicon-plus"></span>
+        <% end %>
+        <div class="table-responsive">
+            <table id="usuarios" class="table table-hover">
+                <tr>
+                    <th>ID</th>
+                    <th><%= t('labels.usuario.nombre') %></th>
+                    <th><%= t('labels.usuario.sidreria') %></th>
+                    <th><%= t('labels.usuario.email') %></th>
+                    <th><%= t('labels.usuario.telefono') %></th>
+                    <th colspan="3"><%= t('labels.usuario.acciones') %></th>
+                </tr>
+                <%= render @users %>
+            </table>
+        </div>
+    </div>

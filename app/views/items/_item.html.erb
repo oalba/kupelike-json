@@ -1,0 +1,131 @@
+<!-- Stats window -->
+       
+        <div class="statsWrapper">
+            <div id="statsWindow" class="row stats<%= item.id %> stats">
+                <div class="col-xs-12">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <a class="pull-right closeStats"><i class="fa fa-times fa-2x" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h1 class="access-title text-center"><%= item.name %></h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!-- <div class="col-xs-6"> -->
+                        <div class="col-xs-12">
+                            <div id="chartContainer-<%= item.id %>"></div>
+                        </div>
+                        <!-- <div class="col-xs-6">
+                            <div id="chartContainer2-<%= item.id %>"></div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    <!-- FIN Stats window -->
+
+        <div class="row single-kupela">
+            <div class="col-xs-4 vote-wrapper">
+                <div class="row text-center">
+                    <div class="col-xs-12 p-x-0">
+                    <img src="<%= item.picture %>" alt="kupela" class="single-kupela-img img-responsive"></img>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <h3 id="<%= item.id %>" class="vote-count"><div id="test"></div><%= item.votes_count %><i class="fa fa-heart fa-1x" aria-hidden="true"></i></h3>
+                    </div>
+                     <div class="col-xs-6 p-x-0">   
+                        <button class="vote-button pull-right">
+                            <a class="btn-facebook" data-numero="<%= item.id %>" data-button="like">
+                                <img class="vote-logo" src="<%= asset_path('logo_reverse.png') %>"></img>
+                            </a>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-8">
+                <div class="caption">
+                    <h3 class="card-title text-uppercase"><%= item.name %></h3>
+                    <p class="single-description"><%= item.description %></p>
+                    <button class="btn btn-primary btn-aviso pull-right" data-numero="<%= item.id %>" data-button="aviso"><%= t('boton.aviso') %></button>
+                    <button class="btn btn-primary btn-stats pull-right" id="stats<%= item.id %>"><%= t('boton.stats') %></button>
+                </div>
+            </div>
+        </div>
+    <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script> -->
+<!-- <script src={{asset("js/estadisticas.min.js")}}></script> -->
+<!--      <%= debug item.statistics %>
+ -->     <script type="text/javascript">
+      
+      // window.onload = function () {
+         var kupelaid = <%= item.id %>;
+         var kupelalikes = <%= item.votes_count %>;
+         //var hombres2 = 0;
+         var kupelah = <%= item.statistics[:males] %>;
+         var kupelam = <%= item.statistics[:females] %>;
+
+        // var chart = [];
+        // var chart2 = [];
+        var anonimous;
+        anonimous = kupelalikes - kupelam - kupelah;
+        chart = new CanvasJS.Chart("chartContainer-"+kupelaid, {
+                theme: "theme2",//theme1
+                //width: 350,
+                title:{
+                    text: "Likes a la kupela por GENERO"              
+                },
+                animationEnabled: false,   // change to true
+                data: [              
+                {
+                    // Change type to "bar", "area", "spline", "pie",etc.
+                    type: "pie",
+                    dataPoints: [
+                        
+                        { y: kupelam, label: "Women" },
+                        { y: kupelah, label: "Men" },
+                        { y: anonimous, label: "Anonimous" }
+                        
+                    ]
+                }
+                ]
+            });
+            chart.render();
+            
+        // anonimous = kupelaslikes - kupelam - kupelah;
+        // chart2 = new CanvasJS.Chart("chartContainer2-"+kupelaid, {
+        //         theme: "theme2",//theme1
+        //         //width: 350,
+        //         title:{
+        //             text: "Likes a la kupela por FECHA"              
+        //         },
+        //         animationEnabled: false,   // change to true
+        //         data: [              
+        //         {
+        //             // Change type to "bar", "area", "spline", "pie",etc.
+        //             type: "column",
+        //             dataPoints: [
+
+        //             ]
+        //         }
+        //         ]
+        //     });
+        //     {% for fecha in fechas %}
+        //         if (kupelasid == {{fecha.id}}){
+        //             chart2.options.data[0].dataPoints.push({ label: "{{fecha.fecha}}",  y: {{fecha.NumVotos}} });
+        //         }
+        //     {% endfor %}
+        //     chart2.render();
+            
+        // }
+        
+      
+      </script>

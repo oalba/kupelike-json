@@ -1,0 +1,105 @@
+   <div class="container">
+        <%= render 'facebook' %>
+        <div class="row single-sagardotegi">
+            <div class="col-xs-6">
+                <h1 class="card-title text-uppercase"><%= @place.name %></h1>
+                    <p class="single-description" id="descripcion"><%= @place.description %></p>
+                    <p class="single-description" id="descripcion"><%= @place.time %></p>
+                    <%= link_to map_path(@place.id) do %>
+                      <button type="button" class="btn btn-default"><%= t('paginas.sidrerias.llegar') %></button>
+                    <% end %>
+                    <button id="contactoSidreria" type="button" class="btn btn-default"><%= t('paginas.sidrerias.contacto') %></button>
+                    <div id="mostrarcontacto">
+                        <p class="single-description"><%= @place.address %></p>
+                        <a href="mailto:<%= @place.email %>"><p class="single-description"><%= @place.email %></p></a>
+                        <a href="tel:<%= @place.phone %>"><p class="single-description"><%= @place.phone %></p></a> 
+                    </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="card-single-direction text-uppercase text-center"><h4><%= @place.town %></h4></div>
+                <img class="single-img img-responsive img-rounded" src="<%= @place.picture %>"></img>
+            </div>
+        </div>
+    </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
+    
+<div class="container-fluid">
+        
+    <div class="row p-x-1 kupela-list">
+        <div class="col-xs-12 col-md-8 col-md-offset-2 col-xl-6 col-xl-offset-3">
+          <%= render @place.items %>
+        </div>
+        
+    </div>
+<!-- <script type="text/javascript">
+      
+      window.onload = function () {
+        var kupelasid = [];
+         var kupelaslikes = [];
+         //var hombres2 = 0;
+         var kupelah = [];
+         var kupelam = [];
+
+
+        var chart = [];
+        // var chart2 = [];
+        var anonimous;
+        for (i = 0; i < kupelasid.length; i++) {
+        anonimous = kupelaslikes[i] - kupelam[i] - kupelah[i];
+        chart[i] = new CanvasJS.Chart("chartContainer-"+kupelasid[i], {
+                theme: "theme2",//theme1
+                //width: 350,
+                title:{
+                    text: "Likes a la kupela por GENERO"              
+                },
+                animationEnabled: false,   // change to true
+                data: [              
+                {
+                    // Change type to "bar", "area", "spline", "pie",etc.
+                    type: "pie",
+                    dataPoints: [
+                        
+                        { y: kupelam[i], label: "Women" },
+                        { y: kupelah[i], label: "Men" },
+                        { y: anonimous, label: "Anonimous" }
+                        
+                    ]
+                }
+                ]
+            });
+            chart[i].render();
+          }
+            
+            
+        //anonimous = kupelaslikes - kupelam - kupelah;
+        // chart2 = new CanvasJS.Chart("chartContainer2-"+kupelaid, {
+        //         theme: "theme2",//theme1
+        //         //width: 350,
+        //         title:{
+        //             text: "Likes a la kupela por FECHA"              
+        //         },
+        //         animationEnabled: false,   // change to true
+        //         data: [              
+        //         {
+        //             // Change type to "bar", "area", "spline", "pie",etc.
+        //             type: "column",
+        //             dataPoints: [
+
+        //             ]
+        //         }
+        //         ]
+        //     });
+        //     {% for fecha in fechas %}
+        //         if (kupelasid == {{fecha.id}}){
+        //             chart2.options.data[0].dataPoints.push({ label: "{{fecha.fecha}}",  y: {{fecha.NumVotos}} });
+        //         }
+        //     {% endfor %}
+        //     chart2.render();
+            
+        }
+        
+      
+      </script> -->

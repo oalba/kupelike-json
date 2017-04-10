@@ -1,0 +1,20 @@
+<div class="container-fluid p-x-0 landing">
+	<div class="row welcome">
+        <div class="col-sm-12 text-center">
+            <h1 class="welcome-text"><%= t('paginas_estaticas.landing.txotx') %></h1>
+            <p class="welcome-subtext"><%= t('paginas_estaticas.landing.subtitulo') %></p>
+            <a class="btn btn-ghost btn-lg btn-encuentra" data-target="mapa"><%= t('paginas_estaticas.landing.encuentra') %></a>
+        </div>
+    </div>
+
+    <div class="row caja" id="mapa">    
+        <div class="col-xs-12">
+            <%= render "places/all_maps.html.erb" %>
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQWPiW2qkBRj4BXmEwFS2XMm2kzwKH82M&callback=myMap"></script>
+        </div>
+    </div>    
+    <div class="row caja" id="sidrerias">  
+       	<div class="col-xs-12">
+    		<%= render "places/list.html.erb" %>
+       	</div>
+    </div>

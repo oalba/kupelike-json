@@ -1,0 +1,31 @@
+<div class="container-fluid content">
+    <div class="row">
+        <div class="col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+            <div class="row">
+                <h1 class="mtitle title-padding text-center"><%= t('paginas.registrasidre.titulo') %></h1>
+                <p id="registro_sidreria" class="single-description"><%= t('paginas.registrasidre.subtitulo') %></p>
+                <p id="registro_sidreria" class="single-description"><%= t('paginas.registrasidre.merece') %></p>
+       
+            </div>
+            <% if flash[:notice] %>
+				<div class="notice alert alert-success"><%= flash[:notice] %></div>
+			<% end %>
+            <div class="row">
+                <%= form_for @message, url: register_path, class: 'contact_form' do |message_form| %>
+                	<label><%= t('labels.registro.nombreyape') %></label>
+                	<%= message_form.text_field :name, placeholder: t('labels.registro.nombreyape'), class: 'formulario', placeholder: t('labels.registro.nombreyape'), required: true %>
+                    <label><%= t('labels.registro.email') %></label>
+                    <%= message_form.email_field :email, placeholder: t('labels.registro.email'), class: 'formulario', placeholder: t('labels.registro.email'), required: true %>
+                    <label><%= t('labels.registro.nombresidre') %></label>
+                	<%= message_form.text_field :place_name, placeholder: t('labels.registro.nombresidre'), class: 'formulario', placeholder: t('labels.registro.nombresidre'), required: true %>
+                    <label><%= t('labels.registro.phone') %></label>
+                	<%= message_form.telephone_field :phone, placeholder: t('labels.registro.phone'), class: 'formulario', placeholder: t('labels.registro.phone'), required: true %>
+                    <label><%= t('labels.registro.direccion') %></label>
+                	<%= message_form.text_field :address, placeholder: t('labels.registro.direccion'), class: 'formulario', placeholder: t('labels.registro.direccion'), required: true %>
+                    <label><%= t('labels.registro.descripcion') %></label>
+                    <%= message_form.text_area :content, placeholder: t('paginas.contacto.descripcion'), class: 'formulario', cols: 40, rows: 6, placeholder: t('labels.registro.descripcion'), required: true %>
+                    <%= message_form.submit t('boton.enviar'), class: 'formulario', id: 'enviar' %>
+                <% end %>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,14 @@
+<tr>
+    <td><img class="img-rounded img-kupela-lista" src="<%= item.picture %>" /></td>
+    <td><%= item.name %></td>
+    <td><%= item.description %></td>
+    <td><%= item.year %><br/>
+    <%= link_to t('boton.embotellado'), admin_place_item_update_year_path(@place, item),
+              data: { confirm: 'Are you sure?' }, class: 'btn btn-primary' %>
+    </td>
+    <td><%= link_to t('boton.editar'), edit_admin_place_item_path(@place, item), class: 'btn btn-primary' %></td>
+	<td><%= link_to t('boton.eliminar'), admin_place_item_path(@place, item),
+              method: :delete,
+              data: { confirm: 'Are you sure?' }, class: 'btn btn-primary' %>
+    </td>
+</tr>

@@ -1,0 +1,51 @@
+<div class="container-fluid">
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <div class="row">
+            <div class="col-xs-8 col-xs-offset-2 col-md-6 col-md-offset-3">
+                <div class="row">
+                  <% flash.each do |key, value| %>
+                  <div class="col-xs-12">
+                    <div class="alert alert-<%= key %> alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <div class="alert alert-danger"><%= value %></div>
+                    </div>
+                  </div>
+                  <% end %>
+                    
+                    <div class="col-xs-12">
+                    <h1 class="mtitle text-center"><%= t('titulos.login') %></h1>
+                    </div>
+                    
+                    <div class="col-xs-12">
+                        <div class="row">
+                        
+                            <div class="form-group col-xs-12">
+                                <%= f.email_field :email, autofocus: true, class: 'form-control', placeholder: t('labels.usuario.email') %>
+                            </div>
+                        
+                            <div class="form-group col-xs-12">
+                                <%= f.password_field :password, autocomplete: "off", class: 'form-control', placeholder: t('paginas.login.contrasena') %>
+                            </div>
+                        
+                            <div class="form-group col-xs-12">
+                                <!--<% if devise_mapping.rememberable? -%>
+                                  <div class="field">
+                                    <%= f.check_box :remember_me %>
+                                    <%= f.label :remember_me %>
+                                  </div>
+                                <% end -%>-->
+                                <%= f.submit t('boton.acceder'), class: 'btn btn-primary pull-right' %>
+                            </div>
+                       
+                        <div class="col-xs-12">
+                            <p class="text-right"><%= t('paginas.login.cuenta') %></p>
+                            <p class="text-right"><%= link_to register_path, t('paginas.login.solicitar') %></p>
+                            <!--<p class="text-right"><%= render "devise/shared/links" %></p> -->
+                        </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+<% end %>
